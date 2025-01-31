@@ -58,11 +58,13 @@ def dict_to_deserialized_file(data: dict, path: str) -> None:
     :raise ValueError: If the file extension is not supported.
     """
     _, extension = os.path.splitext(path)
-    if extension == '.yaml':
-        yaml.dump(data, file)
-    elif extension == '.json':
-        json.dump(data, file, indent=4)
-    elif extension == '.toml':
-        toml.dump(data,file)
-    else:
-        raise ValueError(f'Unsupported file extension {extension} | file={path}.')
+
+    with open(path, 'w') as file:
+        if extension == '.yaml':
+            yaml.dump(data, file)
+        elif extension == '.json':
+            json.dump(data, file, indent=4)
+        elif extension == '.toml':
+            toml.dump(data,file)
+        else:
+            raise ValueError(f'Unsupported file extension {extension} | file={path}.')
